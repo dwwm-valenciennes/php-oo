@@ -22,7 +22,12 @@ $movie = $query->fetch();
 var_dump($movie);
 
 // Avec les objets
+require 'DB.php';
+// On pourrait aussi faire $db = new DB(); mais on veut le faire en statique pour l'exemple
 $movies = DB::query('SELECT * FROM movie');
-$movie = DB::query('SELECT * FROM movie WHERE id = :id', ['id' => 1]);
-var_dump($movies);
-var_dump($movie);
+//$movie = DB::query('SELECT * FROM movie WHERE id = :id', ['id' => 1]);
+//var_dump($movie);
+
+foreach ($movies as $movie) {
+    echo $movie['title'].'<br />';
+}
