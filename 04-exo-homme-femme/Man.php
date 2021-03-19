@@ -42,6 +42,13 @@ class Man {
      * Peut être en relation.
      */
     public function relationShip($people) {
+        // Si la personne (jean) est déjà en couple,
+        // on renvoie une erreur
+        if ($this->partner !== null) {
+            echo $this->firstname.' est déjà en couple <br />';
+            return; // On arrête le code
+        }
+
         // $people représente une personne
         // $this représente la personne qui entre en relation
         $this->partner = $people; // Jean a pour partenaire Sylvie

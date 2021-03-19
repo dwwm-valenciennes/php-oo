@@ -29,10 +29,6 @@ echo $jean->eat().'<br />';
 // Un homme peut se mettre en couple
 $jean->relationShip($sylvie);
 
-var_dump($jean);
-var_dump($sylvie);
-var_dump($edouard);
-
 // S'il est déjà en couple, on renvoie une erreur
 $jean->relationShip($edouard);
 
@@ -40,7 +36,16 @@ $jean->relationShip($edouard);
 $sylvie->pregnant();
 
 // Une femme peut donner naissance à un homme ou une femme
-$child = $sylvie->giveBirth();
+// On définit un prénom garçon et un prénom fille
+$child = $sylvie->giveBirth('Matthieu', 'Fiorella');
+
+// Sylvie a un 2ème enfant
+$sylvie->pregnant();
+$sylvie->giveBirth('Léo', 'Léa');
+
+var_dump($jean);
+var_dump($sylvie);
+var_dump($edouard);
 
 // On peut avoir la liste des enfants de Sylvie
-$sylvie->getChilds();
+echo $sylvie->getChilds(); // Fiorella, Léo, 
