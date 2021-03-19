@@ -1,0 +1,50 @@
+<?php
+
+class Man {
+    public $civility;
+    public $name;
+    public $firstname;
+    public $birthday;
+    public $partner;
+    public $childs = [];
+
+    public function __construct($firstname, $name, $birthday) {
+        $this->firstname = $firstname;
+        $this->name = $name;
+        $this->birthday = $birthday;
+        $this->civility = 'Mr';
+    }
+
+    /**
+     * Fait à manger.
+     */
+    public function cook() {
+        // @todo On doit calculer à combien de personnes on fait à manger
+        return $this->firstname.' fait à manger pour ???';
+    }
+
+    /**
+     * Peut respirer.
+     */
+    public function breathe() {
+        return $this->firstname.' respire';
+    }
+
+    /**
+     * Peut manger.
+     */
+    public function eat() {
+        // On peut appeller une méthode dans une méthode
+        return $this->breathe().' et mange';
+    }
+
+    /**
+     * Peut être en relation.
+     */
+    public function relationShip($people) {
+        // $people représente une personne
+        // $this représente la personne qui entre en relation
+        $this->partner = $people; // Jean a pour partenaire Sylvie
+        $people->partner = $this; // Sylvie a aussi pour partenaire Jean
+    }
+}
