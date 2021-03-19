@@ -30,7 +30,7 @@ $movie = DB::query('SELECT * FROM movie WHERE id = :id', ['id' => 1]);
 var_dump($movie);
 
 // Test du insert
-DB::query(
+DB::postQuery(
     'INSERT INTO movie (title, released_at, description, duration, cover, category_id)
      VALUES (:title, :released_at, :description, :duration, :cover, :category_id)',
     [
