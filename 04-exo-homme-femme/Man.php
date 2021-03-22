@@ -20,7 +20,16 @@ class Man {
      */
     public function cook() {
         // @todo On doit calculer à combien de personnes on fait à manger
-        return $this->firstname.' fait à manger pour ???';
+        $number = 1;
+
+        if ($this->partner) {
+            $number++;
+        }
+
+        // On compte le nombre d'enfants de l'objet
+        $number += count($this->childs);
+
+        return $this->firstname.' fait à manger pour '.$number;
     }
 
     /**

@@ -22,7 +22,13 @@ class Woman {
     public function repair() {
         // @todo Si la personne a un partenaire, elle répare la voiture du partenaire
         // Si elle n'en a pas, c'est sa propre voiture
-        return $this->firstname.' répare la voiture de ???';
+        $sentence = 'sa voiture';
+
+        if ($this->partner) {
+            $sentence = 'la voiture de '.$this->partner->firstname;
+        }
+
+        return $this->firstname.' répare '.$sentence;
     }
 
     /**
@@ -85,6 +91,10 @@ class Woman {
 
         // On ajoute $child à la propriété tableau $childs
         $this->childs[] = $child;
+        // On ajoute l'enfant aux enfants du partenaire également
+        if ($this->partner) {
+            $this->partner->childs[] = $child;
+        }
         $this->pregnant = false;
 
         return $child;

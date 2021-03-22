@@ -19,6 +19,11 @@ require 'Woman.php';
 $jean = new Man('Jean', 'Doe', '1985-11-05');
 $sylvie = new Woman('Sylvie', 'Dum', '1990-12-01');
 $edouard = new Man('Edouard', 'Gugu', '1970-01-02');
+$jeanne = new Woman('Jeanne', 'Darc', '1987-11-01');
+
+$edouard->relationShip($jeanne);
+$jeanne->pregnant()->giveBirth('Georges', 'Laura');
+$jeanne->pregnant()->giveBirth('Georges', 'Laura');
 
 // Un homme peut faire la cuisine
 echo $edouard->cook().'<br />';
@@ -28,6 +33,8 @@ echo $jean->eat().'<br />';
 
 // Un homme peut se mettre en couple
 $jean->relationShip($sylvie);
+
+echo $sylvie->repair().'<br />';
 
 // S'il est déjà en couple, on renvoie une erreur
 $jean->relationShip($edouard);
