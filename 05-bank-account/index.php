@@ -2,6 +2,7 @@
 
 require 'BankAccount.php';
 require 'Owner.php';
+require 'Transaction.php';
 
 $bankAccount01 = new BankAccount(123456, 'Matthieu'); // Matthieu a 0 sur son compte
 echo $bankAccount01->getBalance(); // Renvoie 0
@@ -49,3 +50,15 @@ $bankAccount02->wireTo($bankAccount01, 1999); // Renvoie une erreur
 
 echo $bankAccount01->getBalance(); // Renvoie 9999
 echo $bankAccount02->getBalance(); // Renvoie 1
+
+var_dump($bankAccount01);
+
+// Afficher la liste des transactions
+echo $bankAccount01->getHistory();
+
+// Créer des transactions
+$t1 = new Transaction('test', 10);
+$t2 = new Transaction('test2', 100);
+
+var_dump($t1);
+var_dump($t2);

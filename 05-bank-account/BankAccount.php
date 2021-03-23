@@ -6,6 +6,7 @@ class BankAccount {
     public $balance = 0;
     public static $increment = 1;
     public $owners = [];
+    public $transactions = [];
 
     public function __construct($identifier, $owner = '', $balance = 0) {
         $this->identifier = $identifier;
@@ -34,6 +35,7 @@ class BankAccount {
         }
 
         $this->balance += $amount;
+        $this->transactions[] = new Transaction('deposit', $amount);
     }
 
     /**
@@ -46,6 +48,7 @@ class BankAccount {
         }
 
         $this->balance -= $amount;
+        $this->transactions[] = new Transaction('withdraw', $amount);
     }
 
     /**
@@ -83,5 +86,22 @@ class BankAccount {
         $this->withdrawMoney($amount);
         // On dépose sur le second compte
         $bankAccount->depositMoney($amount);
+    }
+
+    /**
+     * Afficher l'historique des transactions
+     */
+    public function getHistory() {
+        $history = '<ul>';
+
+        foreach ($this->transactions as $transaction) {
+            $history .= "<li>
+                $transaction->type de $transaction->amount euros le $transaction->date
+            </li>";
+        }
+
+        $history .= '</ul>';
+
+        return $history;
     }
 }
