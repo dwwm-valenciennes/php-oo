@@ -33,7 +33,7 @@ var_dump($matthieu);
 $bankAccount05 = new BankAccount(123456);
 $bankAccount05->addOwner($matthieu)
     ->addOwner($marina) // Même chose que ->addOwner(new Owner('Marina'))
-    ->addOwner(new Owner('Fiorella'));
+    ->addOwner(new Owner('Fiorella', 2000));
 var_dump($bankAccount05);
 
 // Retourne la liste des propriétaires du compte
@@ -52,6 +52,10 @@ echo $bankAccount01->getBalance(); // Renvoie 9999
 echo $bankAccount02->getBalance(); // Renvoie 1
 
 var_dump($bankAccount01);
+
+// Pour tester les salaires
+$bankAccount05->payDay();
+var_dump($bankAccount05->getBalance());
 
 // Afficher la liste des transactions
 echo $bankAccount01->getHistory();

@@ -104,4 +104,13 @@ class BankAccount {
 
         return $history;
     }
+
+    /**
+     * Permet de virer la paye de chaque propriétaire sur le compte
+     */
+    public function payDay() {
+        foreach ($this->owners as $owner) {
+            $this->depositMoney($owner->salary);
+        }
+    }
 }
