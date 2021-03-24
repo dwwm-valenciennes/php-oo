@@ -3,12 +3,12 @@
 class Vehicle {
     public $brand;
     public $price;
-    public $wheels;
-    public $registration;
+    protected $wheels;
+    private $registration;
     public static $registrations = [];
 
     private $started = false;
-    protected $currentSpeed = 0;
+    private $currentSpeed = 0;
     protected $maxSpeed = 5;
 
     public function __construct($brand, $price) {
@@ -20,7 +20,7 @@ class Vehicle {
     /**
      * Génère une plaque d'immatriculation unique
      */
-    protected function generateRegistration() {
+    private function generateRegistration() {
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $numbers = '0123456789';
 
@@ -32,10 +32,11 @@ class Vehicle {
 
         if (in_array($registration, self::$registrations)) {
             // Appel récursif de ma fonction pour avoir une immatriculation unique
-            $this->generateRegistration();
+            return $this->generateRegistration();
         }
 
-        self::$registrations[] = $this->registration = $registration;
+        self::$registrations[] = $registration;
+        $this->registration = $registration;
     }
 
     /**
@@ -48,9 +49,14 @@ class Vehicle {
     /**
     * Augmente la vitesse actuelle de 10 km/h
     */
-    public function accelerate($count = 1) {
+    public function accelerate() {
         if ($this->started && $this->currentSpeed <= $this->maxSpeed) {
-            $this->currentSpeed += 10 * $count;
+            $this->currentSpeed += 10;
+        }
+
+        // On bloque la vitesse actuelle à la vitesse max si cela dépasse
+        if ($this->currentSpeed > $this->maxSpeed) {
+            $this->currentSpeed = $this->maxSpeed;
         }
 
         return $this;

@@ -2,9 +2,9 @@
 
 /*
 Nous allons créer un ensemble de véhicules.
-Un véhicule possède une immatriculation, un prix, une marque et 4 roues.
+Un véhicule possède une immatriculation, un prix, une marque et des roues.
 On va devoir incrémenter l'immatriculation à chaque création de véhicule.
-Tous les attributs sont privés ou protégés.
+Tous les attributs sont privés ou protégés (public si on ne veut pas se prendre la tête).
 Un véhicule peut démarrer ou accélérer.
 La méthode accélérer renvoie la vitesse du véhicule (10 km/h)
 Elle incrémente la vitesse de 10 à chaque fois qu'on l'appelle et s'arrête à la vitesse max du véhicule.
@@ -30,16 +30,27 @@ Un véhicule ne peut accélérer que s'il a déjà démarré.
 
 require 'Vehicle.php';
 require 'Car.php';
+require 'Moto.php';
 
 $car1 = new Car('BMW', 10000);
-
 $car1->accelerate(); // Reste à 0
-var_dump($car1);
-
 $car1->start(); // Démarre la voiture
-$car1->accelerate(13); // Accélère 13 fois à 10km/h
+$car1->accelerate(); // Accélère 1 fois à 10km/h
+$car1->accelerate(); // Accélère 1 fois à 20km/h
 var_dump($car1);
 
-$car1->accelerate(2); // Reste à 130...
+$moto1 = new Moto('Yamaha', 5000);
+var_dump($moto1);
 
-var_dump($car1);
+$camion1 = new Camion('Mercedes', 50000, 3, 12); // Capacité de 3 et 12 roues
+$camion1->addItem('PC')->addItem('iPhone')->addItem('TV');
+
+$camion1->addItem('Tomate'); // Camion plein
+var_dump($camion1);
+
+$camion1->attachTrailer(); // Double la capacité (6)
+$camion1->addItem('Tomate')->addItem('Salade')->addItem('Frites');
+var_dump($camion1->getItems()); // Tableau avec 6 éléments
+
+$camion1->detachTrailer();
+var_dump($camion1->getItems()); // Tableau avec 3 éléments
