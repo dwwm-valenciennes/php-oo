@@ -48,6 +48,9 @@ for ($i = 0; $i < 26; $i++) {
     echo $moto1->accelerate().'<br />';
 }
 
+var_dump($car1);
+var_dump($moto1);
+
 $camion1 = new Truck('Mercedes', 50000, 3, 12); // Capacité de 3 et 12 roues
 $camion1->addItem('PC')->addItem('iPhone')->addItem('TV');
 
@@ -60,3 +63,5 @@ var_dump($camion1->getItems()); // Tableau avec 6 éléments
 
 $camion1->detachTrailer();
 var_dump($camion1->getItems()); // Tableau avec 3 éléments
+
+var_dump(Vehicle::$registrations);

@@ -4,7 +4,7 @@ class Vehicle {
     public $brand;
     public $price;
     protected $wheels;
-    public $registration;
+    private $registration;
     public static $registrations = [];
 
     private $started = false;
@@ -21,7 +21,7 @@ class Vehicle {
      * Génère une plaque d'immatriculation unique
      */
     private function generateRegistration() {
-        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // ['A', 'B', 'C', 'D'...]
         $numbers = '0123456789';
 
         $registration = '';
@@ -30,13 +30,14 @@ class Vehicle {
         $registration .= '-'.$numbers[rand(0, 9)].$numbers[rand(0, 9)].$numbers[rand(0, 9)].'-'; // -263-
         $registration .= $letters[rand(0, 25)].$letters[rand(0, 25)]; // RF
 
+        // Est-ce que la plaque générée existe déjà ?
         if (in_array($registration, self::$registrations)) {
             // Appel récursif de ma fonction pour avoir une immatriculation unique
-            return $this->generateRegistration();
+            $this->generateRegistration();
+        } else {
+            self::$registrations[] = $registration;
+            $this->registration = $registration;
         }
-
-        self::$registrations[] = $registration;
-        $this->registration = $registration;
     }
 
     /**
@@ -45,7 +46,7 @@ class Vehicle {
     public function start() {
         $this->started = true;
 
-        return 'La voiture démarre...';
+        return 'Le véhicule (Car) démarre...';
     }
 
     /**
