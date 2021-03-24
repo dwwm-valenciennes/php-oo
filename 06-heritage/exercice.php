@@ -27,3 +27,19 @@ Attention, si on détache la remarque, on perd le chargement qui est de trop (ar
 BONUS:
 Un véhicule ne peut accélérer que s'il a déjà démarré.
 */
+
+require 'Vehicle.php';
+require 'Car.php';
+
+$car1 = new Car('BMW', 10000);
+
+$car1->accelerate(); // Reste à 0
+var_dump($car1);
+
+$car1->start(); // Démarre la voiture
+$car1->accelerate(13); // Accélère 13 fois à 10km/h
+var_dump($car1);
+
+$car1->accelerate(2); // Reste à 130...
+
+var_dump($car1);
