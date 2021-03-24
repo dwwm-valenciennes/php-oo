@@ -4,11 +4,11 @@ class Vehicle {
     public $brand;
     public $price;
     protected $wheels;
-    private $registration;
+    public $registration;
     public static $registrations = [];
 
     private $started = false;
-    private $currentSpeed = 0;
+    protected $currentSpeed = 0;
     protected $maxSpeed = 5;
 
     public function __construct($brand, $price) {
@@ -44,11 +44,13 @@ class Vehicle {
      */
     public function start() {
         $this->started = true;
+
+        return 'La voiture démarre...';
     }
 
     /**
-    * Augmente la vitesse actuelle de 10 km/h
-    */
+     * Augmente la vitesse actuelle de 10 km/h
+     */
     public function accelerate() {
         if ($this->started && $this->currentSpeed <= $this->maxSpeed) {
             $this->currentSpeed += 10;
@@ -59,6 +61,6 @@ class Vehicle {
             $this->currentSpeed = $this->maxSpeed;
         }
 
-        return $this;
+        return $this->brand.' roule à '.$this->currentSpeed.' km/h';
     }
 }

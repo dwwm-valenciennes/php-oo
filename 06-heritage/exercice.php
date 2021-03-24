@@ -28,21 +28,27 @@ BONUS:
 Un véhicule ne peut accélérer que s'il a déjà démarré.
 */
 
-require 'Vehicle.php';
+/*require 'Vehicle.php';
 require 'Car.php';
-require 'Moto.php';
+require 'Bike.php';
+require 'Truck.php';*/
+
+// Merci pour la méthode de ce matin
+spl_autoload_register();
 
 $car1 = new Car('BMW', 10000);
-$car1->accelerate(); // Reste à 0
-$car1->start(); // Démarre la voiture
-$car1->accelerate(); // Accélère 1 fois à 10km/h
-$car1->accelerate(); // Accélère 1 fois à 20km/h
-var_dump($car1);
+echo $car1->accelerate().'<br />'; // Reste à 0
+echo $car1->start().'<br />'; // Démarre la voiture
+echo $car1->accelerate().'<br />'; // Accélère 1 fois à 10km/h
+echo $car1->accelerate().'<br />'; // Accélère 1 fois à 20km/h
 
-$moto1 = new Moto('Yamaha', 5000);
-var_dump($moto1);
+$moto1 = new Bike('Yamaha', 5000);
+echo $moto1->start().'<br />';
+for ($i = 0; $i < 26; $i++) {
+    echo $moto1->accelerate().'<br />';
+}
 
-$camion1 = new Camion('Mercedes', 50000, 3, 12); // Capacité de 3 et 12 roues
+$camion1 = new Truck('Mercedes', 50000, 3, 12); // Capacité de 3 et 12 roues
 $camion1->addItem('PC')->addItem('iPhone')->addItem('TV');
 
 $camion1->addItem('Tomate'); // Camion plein
