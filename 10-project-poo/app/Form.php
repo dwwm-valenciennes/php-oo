@@ -21,6 +21,14 @@ class Form {
     }
 
     /**
+     * Méthode magique qui est appellée quand on accéde à une propriété
+     * inexistante ou private / protected.
+     */
+    public function __get($name) {
+        return $this->get($name);
+    }
+
+    /**
      * Génére un input en HTML.
      *
      * Le label est optionnel et le type est text par défaut.

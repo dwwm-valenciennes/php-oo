@@ -25,7 +25,7 @@ if ($form->isSubmit()) {
     // Envoi un email...
     // Fais une requête en BDD...
     echo $form->get('civility').' '.$form->get('email').' a envoyé un message: <br />';
-    echo $form->get('message');
+    echo $form->message; // $form->message est idem que $form->get('message');
 }
 
 ?>
