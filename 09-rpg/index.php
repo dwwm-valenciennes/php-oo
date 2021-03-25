@@ -1,8 +1,30 @@
 <?php
 
-$aragorn = new RPG\Character\Warrior('Aragorn');
-$legolas = new RPG\Character\Hunter('Legolas');
-$gandalf = new RPG\Character\Magus('Gandalf');
+spl_autoload_register(function ($class) {
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
 
-$potion = new RPG\Inventory\Object('Potion');
-$sword = new RPG\Inventory\Object('Sword');
+    require './app/'.$class.'.php';
+});
+
+use Rpg\Character\Hunter;
+use Rpg\Character\Magus;
+use Rpg\Character\Warrior;
+use Rpg\Inventory\Item;
+
+$aragorn = new Warrior('Aragorn');
+$legolas = new Hunter('Legolas');
+$gandalf = new Magus('Gandalf');
+
+$aragorn->attack($legolas); // Enlève X points de vie en fonction de la force (Force x 2)
+$legolas->rangedAttack($gandalf); // Enlève X points de vie si le personnage est chasseur (Force x 3)
+$gandalf->castSpell($aragorn); // Enlève X points de vie en fonction du mana (Mana x 3)
+
+$potion = new Item('Potion');
+$sword = new Item('Epee');
+
+var_dump($aragorn);
+echo '<br /><br />';
+var_dump($legolas);
+echo '<br /><br />';
+var_dump($gandalf);
+echo '<br /><br />';
