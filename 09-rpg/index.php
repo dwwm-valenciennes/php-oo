@@ -22,6 +22,19 @@ $gandalf->castSpell($aragorn); // Enlève X points de vie en fonction du mana (M
 $potion = new Item('Potion');
 $sword = new Item('Epee');
 
+$aragorn->pick($potion)
+        ->pick($sword);
+
+$gandalf->pick($sword);
+
+for ($i = 0; $i < 10; $i++) {
+    $aragorn->attack($legolas)
+            ->attack($legolas)
+            ->attack($legolas);
+    // On soigne Legolas pour tester l'expérience
+    $legolas->health = 100;
+}
+
 var_dump($aragorn);
 echo '<br /><br />';
 var_dump($legolas);
