@@ -18,7 +18,10 @@ dump($form);
 ?>
 
 <form action="" method="post">
-    
+    <?= $form->select('civility', 'Civilité', ['Mr', 'Mme']); ?>
+    <?= $form->input('email', null, 'email'); ?>
+    <?= $form->input('telephone', 'Téléphone'); ?>
+    <?= $form->textarea('message'); ?>
 </form>
 
 <?php require __DIR__.'/../views/footer.php';
