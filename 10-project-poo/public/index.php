@@ -31,7 +31,35 @@ $email = $form->get('email');
 $email = $form->email;
 
 if ($form->isSubmit() && $validation->isValid()) {
-    // Envoi un email...
+    // Envoyer un email...
+
+    // Configuration du SMTP qui envoie l'email
+    // Si on est chez Bouygues, on peut mettre ça
+    // $transport = new Swift_SmtpTransport('smtp.bbox.fr', 25);
+    // Si on veut utiliser Gmail, on fait ça
+    // $transport = (new Swift_SmtpTransport('smtp.gmail.com', 587))
+    //     ->setUsername('toto@gmail.com')
+    //     ->setPassword('toto');
+    $transport = new Swift_SmtpTransport('localhost', 1025);
+    // Sur un "vrai" hébergement, on utilise ce transport
+    // $transport = new Swift_SendmailTransport();
+    $mailer = new Swift_Mailer($transport);
+
+    // Création de l'email à envoyer: Sujet, expéditeur, destinataire, corps du message
+    $email = (new Swift_Message('Demande de contact'))
+        ->setFrom('toto@gmail.com')
+        ->setTo('toto@gmail.com')
+        ->setBody('
+            Bonjour Matthieu, voici une demande de contact : <br /> <br />
+            - Email: '.$form->email.' <br />
+            - Civilité: '.$form->civility.' <br />
+            - Téléphone: '.$form->telephone.' <br />
+            - Message: '.$form->message.'
+        ', 'text/html');
+
+    // Envoi du mail
+    $mailer->send($email);
+
     // Fais une requête en BDD...
     echo $form->get('civility').' '.$form->get('email').' a envoyé un message: <br />';
     echo $form->message; // $form->message est idem que $form->get('message');
@@ -40,6 +68,11 @@ if ($form->isSubmit() && $validation->isValid()) {
 ?>
 
 <form action="" method="post">
+    <div>
+        <?php // $validation->add('qcm_1')->required()->in(['B', 'D']); ?>
+        <?php // echo $form->select('qcm_1', 'Que fait 1 + 1', ['A' => '1', 'B' => '2', 'C' => '3', 'D' => '4']); ?>
+        <?php // echo $validation->error('qcm_1'); ?>
+    </div>
     <div>
         <?= $form->select('civility', 'Civilité', ['Mr' => 'Mr', 'Mme' => 'Mme']); ?>
         <?= $validation->error('civility'); ?>

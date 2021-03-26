@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "symfony/var-dumper": "^5.2"
+        "symfony/var-dumper": "^5.2",
+        "swiftmailer/swiftmailer": "^6.2"
     },
     "autoload": {
         "psr-4": {
