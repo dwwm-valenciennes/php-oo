@@ -65,12 +65,13 @@ if ($form->isSubmit() && $validation->isValid()) {
         ', 'text/html');
 
     // Envoi du mail
-    $mailer->send($email);
+    // $mailer->send($email);
 
     // Fais une requête en BDD...
     // On a une table contact avec 5 colonnes: id (INT), civility, email, phone, message (TEXT)
     // use App\Contact;
     $contact = new Contact();
+    // $contact->__set('civility', 'Mme');
     $contact->civility = $form->civility;
     $contact->email = $form->email;
     $contact->phone = $form->telephone;
