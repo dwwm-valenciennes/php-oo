@@ -11,15 +11,27 @@ require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/../views/header.php';
 
 use App\Form;
+use App\Validation;
 
 $form = new Form($_POST);
-dump($form);
-dump($form->get('email'));
+$validation = new Validation($form);
+$validation->add('email')->required()->email();
+$validation->add('message')->required();
+dump($validation->errors);
+
+
+
+
+/*$validation->add('civility')->in(['Mr', 'Mme'])->required();
+$validation->add('telephone')->numbers()->required();
+$validation->add('message')->min(15)->required();*/
 
 // Sans l'objet, on fait ça
 $email = $_POST['email'] ?? null;
 // Avec l'objet, on fait ça
 $email = $form->get('email');
+// ou ça
+$email = $form->email;
 
 if ($form->isSubmit()) {
     // Envoi un email...
