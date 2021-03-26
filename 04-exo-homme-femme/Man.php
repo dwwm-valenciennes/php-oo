@@ -19,7 +19,7 @@ class Man {
      * Fait à manger.
      */
     public function cook() {
-        // @todo On doit calculer à combien de personnes on fait à manger
+        // On doit calculer à combien de personnes on fait à manger
         $number = 1;
 
         if ($this->partner) {

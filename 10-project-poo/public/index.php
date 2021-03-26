@@ -15,16 +15,13 @@ use App\Validation;
 
 $form = new Form($_POST);
 $validation = new Validation($form);
+$validation->add('civility')->required()->in(['Mr', 'Mme']);
 $validation->add('email')->required()->email();
-$validation->add('message')->required();
-dump($validation->errors);
-
-
-
-
-/*$validation->add('civility')->in(['Mr', 'Mme'])->required();
-$validation->add('telephone')->numbers()->required();
-$validation->add('message')->min(15)->required();*/
+$validation->add('telephone')->required()->min(10)->number();
+$validation->add('message')->required()->min(15);
+// Potentiellement, en @todo on pourrait ajouter une règle confirmed()
+// $validation->add('password')->required()->min(6)->confirmed();
+// Le confirmed pourrait comparer le champ password et password_confirmation
 
 // Sans l'objet, on fait ça
 $email = $_POST['email'] ?? null;
@@ -33,7 +30,7 @@ $email = $form->get('email');
 // ou ça
 $email = $form->email;
 
-if ($form->isSubmit()) {
+if ($form->isSubmit() && $validation->isValid()) {
     // Envoi un email...
     // Fais une requête en BDD...
     echo $form->get('civility').' '.$form->get('email').' a envoyé un message: <br />';
@@ -43,10 +40,22 @@ if ($form->isSubmit()) {
 ?>
 
 <form action="" method="post">
-    <?= $form->select('civility', 'Civilité', ['Mr' => 'Mr', 'Mme' => 'Mme']); ?>
-    <?= $form->input('email', null, 'email'); ?>
-    <?= $form->input('telephone', 'Téléphone'); ?>
-    <?= $form->textarea('message'); ?>
+    <div>
+        <?= $form->select('civility', 'Civilité', ['Mr' => 'Mr', 'Mme' => 'Mme']); ?>
+        <?= $validation->error('civility'); ?>
+    </div>
+    <div>
+        <?= $form->input('email', null, 'email'); ?>
+        <?= $validation->error('email'); ?>
+    </div>
+    <div>
+        <?= $form->input('telephone', 'Téléphone'); ?>
+        <?= $validation->error('telephone'); ?>
+    </div>
+    <div>
+        <?= $form->textarea('message'); ?>
+        <?= $validation->error('message'); ?>
+    </div>
 
     <button class="btn btn-primary">Envoyer</button>
 </form>

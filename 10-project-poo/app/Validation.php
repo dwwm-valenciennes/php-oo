@@ -48,4 +48,58 @@ class Validation {
 
         return $this;
     }
+
+    /**
+     * Vérifie qu'une chaine a une longueur minimum.
+     */
+    public function min($length) {
+        $field = $this->form->get($this->field);
+
+        // On fait la vérif que si le champs n'est pas NULL et n'est pas ''
+        if (!empty($field) && strlen($field) < $length) {
+            $this->errors[$this->field] = 'Le champ '.$this->field.' doit faire '.$length.' caractères minimum.';
+        }
+
+        return $this;
+    }
+
+    /**
+     * Vérifie qu'une chaine est un nombre.
+     */
+    public function number() {
+        $field = $this->form->get($this->field);
+
+        if (!empty($field) && !ctype_digit($field)) {
+            $this->errors[$this->field] = 'Le champ '.$this->field.' est un nombre invalide';
+        }
+
+        return $this;
+    }
+
+    /**
+     * Vérifie qu'une chaine fait partie d'une liste de valeurs.
+     */
+    public function in($values = []) {
+        $field = $this->form->get($this->field);
+
+        if (!empty($field) && !in_array($field, $values)) {
+            $this->errors[$this->field] = 'Le champ '.$this->field.' est invalide: '.implode(', ', $values);
+            // implode(', ', ['A', 'B']) => ['A', 'B'] devient 'A, B'
+        }
+    }
+
+    /**
+     * Permet d'afficher une erreur si elle existe
+     * dans $this->errors
+     */
+    public function error($field) {
+        return $this->errors[$field] ?? null;
+    }
+
+    /**
+     * Détermine si la validation des champs est correct.
+     */
+    public function isValid() {
+        return empty($this->errors);
+    }
 }

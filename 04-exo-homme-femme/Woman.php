@@ -20,7 +20,7 @@ class Woman {
      * Répare quelque chose.
      */
     public function repair() {
-        // @todo Si la personne a un partenaire, elle répare la voiture du partenaire
+        // Si la personne a un partenaire, elle répare la voiture du partenaire
         // Si elle n'en a pas, c'est sa propre voiture
         $sentence = 'sa voiture';
 
