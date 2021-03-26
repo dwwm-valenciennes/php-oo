@@ -10,6 +10,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 require __DIR__.'/../views/header.php';
 
+use App\Contact;
 use App\Form;
 use App\Validation;
 
@@ -32,6 +33,12 @@ $email = $form->email;
 
 if ($form->isSubmit() && $validation->isValid()) {
     // Envoyer un email...
+
+    // @todo Faire une classe Mail qui simplifie les choses
+    /*(new Mail('Sujet'))->setFrom('')
+        ->setTo('')
+        ->setBody('')
+        ->send();*/
 
     // Configuration du SMTP qui envoie l'email
     // Si on est chez Bouygues, on peut mettre ça
@@ -61,6 +68,15 @@ if ($form->isSubmit() && $validation->isValid()) {
     $mailer->send($email);
 
     // Fais une requête en BDD...
+    // On a une table contact avec 5 colonnes: id (INT), civility, email, phone, message (TEXT)
+    // use App\Contact;
+    $contact = new Contact();
+    $contact->civility = $form->civility;
+    $contact->email = $form->email;
+    $contact->phone = $form->telephone;
+    $contact->message = $form->message;
+    $contact->save();
+
     echo $form->get('civility').' '.$form->get('email').' a envoyé un message: <br />';
     echo $form->message; // $form->message est idem que $form->get('message');
 }
