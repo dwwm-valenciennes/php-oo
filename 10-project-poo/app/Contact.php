@@ -5,6 +5,9 @@ namespace App;
 class Contact {
     public $id;
     public $fields = [];
+    /**
+     * ['civility' => 'Mr', 'email' => 'm@m.fr']
+     */
     /*public $civility;
     public $email;
     public $phone;
@@ -22,6 +25,41 @@ class Contact {
     }
 
     /**
+     * Renvoie la liste des colonnes de la table.
+     */
+    public function columns() {
+        // ['civility' => 'Mr', 'email' => 'm@m.fr'] devient ['civility', 'email']
+        $columns = array_keys($this->fields);
+
+        // ['civility', 'email'] devient civility, email
+        return implode(', ', $columns);
+    }
+
+    /**
+     * Renvoie les paramètres de la requête.
+     */
+    public function parameters() {
+        // Méthode 1 : Simple et explicite
+        $parameters = [];
+
+        // ['civility', 'email'] devient [':civility', ':email']
+        foreach (array_keys($this->fields) as $column) {
+            $parameters[] = ':'.$column;
+        }
+
+        // Méthode 2 avec le passage par référence (&column)
+        // Le &column correspond EXACTEMENT à la valeur du tableau donc si
+        // on modifie la référence (en mémoire RAM), on modifie le tableau
+        $parameters = array_keys($this->fields);
+        foreach ($parameters as &$column) {
+            $column = ':'.$column;
+        }
+
+        // [':civility', ':email'] devient :civility, :email
+        return implode(', ', $parameters);
+    }
+
+    /**
      * Enregistre un contact dans la BDD.
      */
     public function save() {
@@ -30,8 +68,8 @@ class Contact {
         // App/Contact -> Contact -> contact
         $table = strtolower(basename($table)); // /home/matthieu/Fiorella -> fiorella
         // Ici on doit faire un INSERT...
-        $sql = "INSERT INTO $table (civility, email, phone, message)
-                VALUES (:civility, :email, :phone, :message)";
+        $sql = "INSERT INTO $table ({$this->columns()})
+                VALUES ({$this->parameters()})";
         // dd est un dump et un die
         // dd($sql);
 
